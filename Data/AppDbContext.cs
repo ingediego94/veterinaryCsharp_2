@@ -20,6 +20,10 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Client>()
             .HasIndex(c => c.Email)
             .IsUnique();
+
+        modelBuilder.Entity<Branch>()
+            .HasIndex(b => b.BranchCode)
+            .IsUnique();
             
         base.OnModelCreating(modelBuilder);
     }

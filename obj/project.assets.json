@@ -2914,19 +2914,19 @@
     ]
   },
   "packageFolders": {
-    "/home/dv/.nuget/packages/": {}
+    "/home/diego-v/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/dv/Documents/diego_dev/practicaUno/practicaUno.csproj",
+      "projectUniqueName": "/home/diego-v/Documents/diego_dev/veterinaryCsharp_2/practicaUno.csproj",
       "projectName": "practicaUno",
-      "projectPath": "/home/dv/Documents/diego_dev/practicaUno/practicaUno.csproj",
-      "packagesPath": "/home/dv/.nuget/packages/",
-      "outputPath": "/home/dv/Documents/diego_dev/practicaUno/obj/",
+      "projectPath": "/home/diego-v/Documents/diego_dev/veterinaryCsharp_2/practicaUno.csproj",
+      "packagesPath": "/home/diego-v/.nuget/packages/",
+      "outputPath": "/home/diego-v/Documents/diego_dev/veterinaryCsharp_2/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/dv/.nuget/NuGet/NuGet.Config"
+        "/home/diego-v/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2944,6 +2944,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2984,7 +2989,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.121/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.415/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

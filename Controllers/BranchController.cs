@@ -25,13 +25,32 @@ public class BranchController : Controller
     
     
     // Create 
-    public async Task<IActionResult> Create([Bind("BranchName,Address,Phone")]Branch branch)
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("BranchCode,BranchName,Address,Phone")]Branch branch)
     {
         if (ModelState.IsValid)
         {
-            await _context.branches_tb.AddAsync(branch);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var branchCodeExists = await _context.branches_tb.AnyAsync(p => p.BranchCode == branch.BranchCode);
+
+                if (branchCodeExists)
+                {
+                    TempData["ErrorMessage"] =
+                        $"The code for this branch ({branch.BranchCode}) already exists. Try another one.";
+                    return RedirectToAction(nameof(Index));
+                }
+                
+                await _context.branches_tb.AddAsync(branch);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = $"Register created successfuly.";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"It has presented an error. Error: {ex.Message}";
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         return View(branch);

@@ -12,7 +12,7 @@ using practicaUno.Data;
 namespace practicaUno.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251020221332_Initial")]
+    [Migration("20251021020145_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
