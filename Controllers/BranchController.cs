@@ -56,4 +56,64 @@ public class BranchController : Controller
         return View(branch);
     }
 
+    
+    // Delete
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var branchToDelete = await _context.branches_tb.FindAsync(id);
+        
+        if (branchToDelete != null)
+        {
+            try
+            {
+                _context.branches_tb.Remove(branchToDelete);
+                TempData["SuccessMessage"] = $"Register delete successfully";
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Error deleting. Error:{ex.Message}";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        return RedirectToAction(nameof(Index));
+    }
+    
+    
+    // Edit
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(int id)
+    {
+        var branchToUpdate = await _context.branches_tb.FindAsync(id);
+    
+        if (branchToUpdate != null)
+        {
+            try
+            {
+                await TryUpdateModelAsync<Branch>(branchToUpdate, "",
+                    b => b.BranchName,
+                    b => b.BranchCode,
+                    b => b.Address,
+                    b => b.Phone
+                );
+
+                TempData["SuccessMessage"] = $"Editing successfully.";
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Error editing. Error: {ex.Message}";
+                return RedirectToAction(nameof(Index));
+            }
+            
+        }
+
+        return RedirectToAction(nameof(Index));
+    }
+    
+    
+    
 }
