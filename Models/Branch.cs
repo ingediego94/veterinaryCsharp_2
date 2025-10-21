@@ -15,4 +15,5 @@ public class Branch
     public string Phone { get; set; }
 
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+    
 }
