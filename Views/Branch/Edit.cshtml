@@ -1,3 +1,36 @@
 @model practicaUno.Models.Branch
 
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-4 p-4 shadow-lg bg-white rounded mt-3">
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id"/>
+            
+            <div class="form-group">
+                <label asp-for="BranchName">Branch Name</label>
+                <input asp-for="BranchName" type="text" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="BranchCode">Branch Code</label>
+                <input asp-for="BranchCode" type="number" class="form-control" min="0" step="1" required>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Address">Address</label>
+                <input asp-for="Address" type="text" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Phone">Phone</label>
+                <input asp-for="Phone" class="form-control" type="number" min="0" step="1" required>
+            </div>
+        </form>
+    </div>
+</div>
+
 

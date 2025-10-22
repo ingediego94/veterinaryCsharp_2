@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using practicaUno.Data;
@@ -82,36 +83,59 @@ public class BranchController : Controller
     }
     
     
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var branch = await _context.branches_tb.FindAsync(id);
+        
+        if (branch == null)
+            return NotFound();
+            
+        return View(branch);
+    }
+
+    
     // Edit
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Update(int id)
+    [HttpPost, ValidateAntiForgeryToken, ActionName("Edit")]
+    public async Task<IActionResult> EditPost(int id)
     {
         var branchToUpdate = await _context.branches_tb.FindAsync(id);
-    
-        if (branchToUpdate != null)
-        {
-            try
-            {
-                await TryUpdateModelAsync<Branch>(branchToUpdate, "",
-                    b => b.BranchName,
-                    b => b.BranchCode,
-                    b => b.Address,
-                    b => b.Phone
-                );
 
-                TempData["SuccessMessage"] = $"Editing successfully.";
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
+        if (branchToUpdate == null) return NotFound();
+        
+        try
+        {
+
+            if (await TryUpdateModelAsync<Branch>(
+                branchToUpdate,
+                "",
+                b => b.BranchCode,
+                b => b.BranchName,
+                b => b.Address,
+                b => b.Phone
+                )
+                )
             {
-                TempData["ErrorMessage"] = $"Error editing. Error: {ex.Message}";
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    TempData["SuccessMessage"] = $"Editing successfully.";
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = $"Error editing. Error: {ex.Message}";
+                    return RedirectToAction(nameof(Index));
+                    
+                }
             }
+        }
+        catch (Exception e)
+        {
             
         }
 
-        return RedirectToAction(nameof(Index));
+        return View(branchToUpdate);
     }
     
     
